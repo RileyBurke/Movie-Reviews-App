@@ -1,7 +1,7 @@
 [
     {
         "name": "Alien",
-        "date:": "May 25, 1979",
+        "releaseDate": "May 25, 1979",
         "actors": [	
             "Tom Skerritt",
             "Sigourney Weaver",
@@ -10,23 +10,23 @@
             "John Hurt",
             "Ian Holm",
             "Yaphet Kotto"],
-        "poster": "Alien.jpg",
+        "poster": "/movie_posters/Alien.jpg",
         "rating": 5
     },
     {
         "name": "Blade Runner",
-        "date:": "June 25, 1982",
+        "releaseDate": "June 25, 1982",
         "actors": [	
             "Harrison Ford",
             "Rutger Hauer",
             "Sean Young",
             "Edward James Olmos"],
-        "poster": "Blade_Runner.png",
+        "poster": "/movie_posters/Blade_Runner.png",
         "rating": 5
     },
     {
         "name": "Full Metal Jacket",
-        "date:": "June 26, 1987",
+        "releaseDate": "June 26, 1987",
         "actors": [	
             "Matthew Modine",
             "Adam Baldwin",
@@ -36,12 +36,12 @@
             "Arliss Howard",
             "Kevyn Major Howard",
             "Ed O'Ross"],
-        "poster": "Full_Metal_Jacket.jpg",
+        "poster": "/movie_posters/Full_Metal_Jacket.jpg",
         "rating": 5
     },
     {
         "name": "Star Wars Episode II: Attack of the Clones",
-        "date:": "May 16, 2002",
+        "releaseDate": "May 16, 2002",
         "actors": [	
             "Ewan McGregor",
             "Natalie Portman",
@@ -52,17 +52,17 @@
             "Anthony Daniels",
             "Kenny Baker",
             "Frank Oz"],
-        "poster": "StarWars.jpg",
+        "poster": "/movie_posters/StarWars.jpg",
         "rating": 1
     },
     {
         "name": "No Country for Old Men",
-        "date:": "November 9, 2007",
+        "releaseDate": "November 9, 2007",
         "actors": [
             "Tommy Lee Jones",
             "Javier Bardem",
             "Josh Brolin"],
-        "poster": "No_Country_for_Old_Men.jpg",
+        "poster": "/movie_posters/No_Country_for_Old_Men.jpg",
         "rating": 5
     }
 ]
