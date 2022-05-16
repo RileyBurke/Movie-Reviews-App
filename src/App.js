@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { MovieReviews, SubmitReview } from "./pages";
-
-
+import { Navigation } from "./navigation";
 
 function App() {
   const [movies, setMovies] = useState(null);
@@ -18,12 +16,13 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <>
+      <Navigation />
       <Routes>
         <Route path="/" element={<MovieReviews moviesList={movies} setMovies={setMovies} />} />
         <Route path="/submit" element={<SubmitReview />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
