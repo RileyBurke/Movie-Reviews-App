@@ -19,7 +19,14 @@ function App() {
     <>
       <Navigation />
       <Routes>
-        <Route path="/" element={<MovieReviews moviesList={movies} setMovies={setMovies} />} />
+        <Route path="/" element={<MovieReviews moviesList={movies} setMovies={setMovies} 
+        onRemoveMovie={id => {
+          const newList = movies.filter(id => movies.id !== id);
+          console.log(movies.id);
+          console.log(newList);
+          console.log(id);
+          setMovies(newList);
+        }} />} />
         <Route path="/submit" element={<SubmitReview />} />
       </Routes>
     </>

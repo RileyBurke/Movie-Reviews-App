@@ -1,7 +1,8 @@
 import React from "react";
+import { FaTrash } from "react-icons/fa";
 
-export function MovieReviews( { moviesList = [], onChangeMovies = f => f }) {
-    if( moviesList == null || moviesList == undefined ) return <h2></h2>
+export function MovieReviews( { moviesList = [], onChangeMovies = f => f, onRemoveMovie = f => f }) {
+    if( moviesList == null || moviesList == undefined || !moviesList.length) return <h2>No reviews listed.</h2>
     let moviesListObjects = moviesList.map( (movie, i) => ({movieInfo: movie, id: i}))
     
 
@@ -15,11 +16,14 @@ export function MovieReviews( { moviesList = [], onChangeMovies = f => f }) {
                 return(
                 <div key={i}>
                     <h2>{movie.movieInfo.name}</h2>
+                    <button onClick={() => onRemoveMovie(i)}>
+                    <FaTrash />
+                    </button><br/>
                     <img src={movie.movieInfo.poster} />
                     <h4>Release date: {movie.movieInfo.releaseDate}</h4>
                     <h4>Starring:</h4>
                     <ul>
-                        {console.log(actorsObject)}
+                        {/* {console.log(actorsObject)} */}
                         {actorsObject.map( (actorsList) => {
                         return <li key={actorsList.id}>{actorsList.actor}</li>
                         })}
