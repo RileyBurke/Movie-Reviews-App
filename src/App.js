@@ -26,9 +26,14 @@ function App() {
         }} />} />
         <Route path="/submit" element={<SubmitReview 
         onAddMovie={ (movieName, releaseDate, actors, rating, poster) => {
-
+          let movieId;
+          if (movies.length > 0){
+            movieId = movies[movies.length - 1].id + 1;
+           }else{
+             movieId = 0
+           }
           const newMovie = {
-            id: movies[movies.length - 1].id + 1,
+            id: movieId,
             name: movieName,
             releaseDate: releaseDate,
             actors: actors.split(", "),
