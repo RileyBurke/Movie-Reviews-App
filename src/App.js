@@ -21,13 +21,23 @@ function App() {
       <Routes>
         <Route path="/" element={<MovieReviews moviesList={movies} setMovies={setMovies} 
         onRemoveMovie={id => {
-          const newList = movies.filter(id => movies.id !== id);
-          console.log(movies.id);
-          console.log(newList);
-          console.log(id);
+          const newList = movies.filter(movies => movies.id !== id);
           setMovies(newList);
         }} />} />
-        <Route path="/submit" element={<SubmitReview />} />
+        <Route path="/submit" element={<SubmitReview 
+        onAddMovie={ (movieName, releaseDate, actors, rating, poster) => {
+
+          const newMovie = {
+            id: movies[movies.length - 1].id + 1,
+            name: movieName,
+            releaseDate: releaseDate,
+            actors: actors.split(", "),
+            poster: poster,
+            rating: rating
+          };
+          movies[movies.length] = newMovie;
+          setMovies(movies);
+        }}/>} />
       </Routes>
     </>
   );
