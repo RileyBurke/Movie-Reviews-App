@@ -1,0 +1,22 @@
+body{
+    background: url("C:\Users\riley\Desktop\Project\Movie-Reviews-App\movie-reviews-app\public\film_background2.png");
+    margin-top: 80px;
+    background-size: cover;
+}
+h1{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+.navbar img{
+    margin-right: 20px;
+}
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+#emptyPage{
+    margin-left: 20px;
+}

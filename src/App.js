@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
-import { MovieReviews, SubmitReview } from "./pages";
+import { MovieReviews} from "./reviews";
+import { SubmitReview } from './movie_form';
 import { Navigation } from "./navigation";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './main.css';
 
 function App() {
   const [movies, setMovies] = useState(null);
@@ -36,7 +39,7 @@ function App() {
             id: movieId,
             name: movieName,
             releaseDate: releaseDate,
-            actors: actors.split(", "),
+            actors: actors.trim().replace("\n", "").split(","),
             poster: poster,
             rating: rating
           };
