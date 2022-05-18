@@ -34,21 +34,23 @@ function App() {
             movieId = movies[movies.length - 1].id + 1;
            }else{
              movieId = 0
-           }
+           };
           const newMovie = {
             id: movieId,
             name: movieName,
             releaseDate: releaseDate,
-            actors: actors.trim().replace("\n", "").split(","),
+            //Ensuring no whitespace errors entered within the actors text input.
+            actors: actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()), 
             poster: poster,
             rating: rating
           };
+          console.log(newMovie);
           movies[movies.length] = newMovie;
           setMovies(movies);
         }}/>} />
       </Routes>
     </>
   );
-}
+};
 
 export default App;

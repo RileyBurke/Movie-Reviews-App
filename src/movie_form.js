@@ -14,10 +14,10 @@ export function SubmitReview( {onAddMovie = f => f} ) {
         const movieName = movieNameRef.current.value;
         const releaseDate = releaseDateRef.current.value;
         const actors = actorsRef.current.value;
-        const rating = ratingRef.current.value;
+        const rating = parseInt(ratingRef.current.value);
         const poster = posterRef.current.value;
 
-        if (movieName !== "" && releaseDate !== "" && actors !== ""){
+        if (movieName !== "" && releaseDate !== "" && actors.match(/[A-Za-z]/)){
             onAddMovie(movieName, releaseDate, actors, rating, poster);
             document.querySelector("#confirmation").classList = "success";
             document.querySelector("form").nextElementSibling.textContent = `${movieName} review submission successful!`;
@@ -27,9 +27,8 @@ export function SubmitReview( {onAddMovie = f => f} ) {
         }else{
             document.querySelector("#confirmation").classList = "fail";
             document.querySelector("#confirmation").textContent = "All text fields must be completed.";
-        }
-    }
-
+        };
+    };
 
     return(
         <div>
@@ -62,4 +61,4 @@ export function SubmitReview( {onAddMovie = f => f} ) {
             <span id="confirmation"></span>
         </div>
     );
-}
+};

@@ -7,7 +7,7 @@ export function Navigation() {
             <Navbar bg="light">
                 <Container>
                     <Nav>
-                        <img src="/film_reel.png" height="40px" width="40px" />
+                        <img src="/film_reel.png" height="40px" width="40px" alt="Film reel icon" />
                         <Navbar.Brand>Riley's Movie Reviews</Navbar.Brand>
                     </Nav>
                     <Link to="/">Reviews</Link>
@@ -15,5 +15,5 @@ export function Navigation() {
                 </Container>
             </Navbar>
         </>
-    )
+    );
   };

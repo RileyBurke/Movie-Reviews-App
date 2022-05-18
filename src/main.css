@@ -16,6 +16,7 @@ h1{
     top: 0;
     width: 100%;
     z-index: 100;
+    border-bottom: 1px solid black;
 }
 #emptyPage{
     margin-left: 20px;
