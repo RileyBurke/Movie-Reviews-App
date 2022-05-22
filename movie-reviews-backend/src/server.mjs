@@ -17,11 +17,11 @@ app.use(express.json());
 
 const client = new MongoClient('mongodb://localhost:27017');
 
-app.get('api/data', async (req, res) => {
+app.get('/api/data', async (req, res) => {
     try{
         await client.connect();
-        const db = client.db("movies");
-        const movieInfo = await db.collection('mymovies').find({}).toArray();
+        const db = client.db("movieDatabase");
+        const movieInfo = await db.collection('movies').find({}).toArray();
         res.status(200).json(movieInfo);
         client.close();
     }catch(error){
@@ -31,5 +31,27 @@ app.get('api/data', async (req, res) => {
 
 }) 
 
+// app.post('/submit', (req, res) => {
+//     const movieName = req.params.movie_name;
+//     const releaseDate = req.params.release_date;
+//     const actors = req.params.actors;
+//     const poster = req.params.movie_poster;
+//     const rating = req.params.movie_rating;
+//     try{
+//         await client.connect();
+//         const db = client.db("movieDatabase");
+//         await db.collection('movies').insertOne( {
+//             "name": movieName,
+//             "releaseDate": releaseDate,
+//             "actors": actors,
+//             "poster": poster,
+//             "rating": rating
+//         });
+//         res.status(200).json(movieInfo);
+//         client.close();
+//     }catch(error){
+//         res.sendStatus(500);
+//     }
+// });
 
 app.listen(8000, () => console.log("Listening on port 8000."));
