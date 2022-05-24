@@ -33,48 +33,25 @@ function AddMoviePage( {onAddMovie = f => f} ) {
             document.querySelector("#confirmation").classList = "success";
             document.querySelector("form").nextElementSibling.textContent = `${movieName} review submission successful!`;
             
-            // var myHeaders = new Headers();
-            // myHeaders.append("Content-Type", "application/json");
-
-            // var raw = JSON.stringify({
-            // "name": movieName,
-            // "releaseDate": releaseDate,
-            // "actors": actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()),
-            // "poster": poster,
-            // "rating": parseInt(rating)
-            // });
+            // var formdata = new FormData();
+            // formdata.append("name", movieName);
+            // formdata.append("releaseDate", releaseDate);
+            // formdata.append("actors", actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()));
+            // formdata.append("poster", $("#movie_poster").files[0]);
+            // formdata.append("rating", parseInt(rating));
 
             // var requestOptions = {
             // method: 'POST',
-            // headers: myHeaders,
-            // body: raw,
+            // body: formdata,
             // redirect: 'follow'
             // };
-
+            
             // fetch("http://localhost:8000/add/submit", requestOptions)
             // .then(response => response.text())
             // .then(result => console.log(result))
             // .catch(error => console.log('error', error));
 
-            var formdata = new FormData();
-            formdata.append("movie_name", movieName);
-            formdata.append("release_date", releaseDate);
-            formdata.append("actors", actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()));
-            formdata.append("movie_poster", $("#movie_poster").files[0]);
-            formdata.append("movie_rating", rating);
-
-            var requestOptions = {
-            method: 'POST',
-            body: formdata,
-            redirect: 'follow'
-            };
-
-            fetch("http://localhost:8000/add/submit", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-
+            $("#movie_form").submit();
             setMovieName("");
             setReleaseDate("");
             setActors("");
@@ -90,7 +67,7 @@ function AddMoviePage( {onAddMovie = f => f} ) {
     return(
         <div>
             <h1>Submit a Movie Review</h1>
-            <form id="movie_form" method="POST" encType="multipart/form-data" onSubmit={submit}>
+            <form action="/add/submit" id="movie_form" method="POST" encType="multipart/form-data" onSubmit={submit}>
                 <label htmlFor="movie_name">Movie Title: </label>
                 <input type="text" id="movie_name" name="movie_name" onChange={e => setMovieName(e.target.value)}/><br/>
                 <label htmlFor="release_date">Release date: </label>

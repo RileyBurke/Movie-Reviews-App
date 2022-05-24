@@ -1,13 +1,15 @@
 import express from "express";
 import { ClientRequest } from "http";
 import { MongoClient } from "mongodb";
-import path from "path"
+import multer from "multer";
 
 const app = express();
 
 app.use(express.json());
 
 const client = new MongoClient('mongodb://localhost:27017');
+
+const upload = multer( {dest: 'posters/'})
 
 app.get('/api/data', async (req, res) => {
     try{
@@ -21,18 +23,16 @@ app.get('/api/data', async (req, res) => {
     }
 }) 
 
-app.post('/add/submit', (req, res) => {
-    console.log(req.body);
-    const movieName = req.body.name;
-    const releaseDate = req.body.releaseDate;
+app.post('/add/submit', upload.single('movie_poster'), (req, res) => {
+    console.log(req.file);
+    
+    const movieName = req.body.movie_name;
+    const releaseDate = req.body.release_date;
     const actors = req.body.actors;
-    const poster = req.body.poster;
-    const rating = req.body.rating;
-    console.log(movieName);
-    console.log(releaseDate);
-    console.log(actors);
-    console.log(poster);
-    console.log(rating);
+    const rating = req.body.movie_rating;
+    
+    const poster = req.file;
+
     // try{
     //     await client.connect();
     //     const db = client.db("movieDatabase");
