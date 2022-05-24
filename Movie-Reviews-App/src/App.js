@@ -28,8 +28,6 @@ function App() {
   //   .catch( e => console.log(e.message));
   // }, []);
 
-
-
   return (
     <>
       <NavigationBar />
@@ -68,26 +66,8 @@ function App() {
             .then(setMovies)
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-          // let movieId;
-          // if (movies.length > 0){
-          //   movieId = movies.length;
-          //  }else{
-          //    movieId = 0
-          //  };
-          // const newMovie = {
-          //   _id: movieId,
-          //   name: movieName,
-          //   releaseDate: releaseDate,
-          //   //Ensuring no whitespace errors entered within the actors text input.
-          //   actors: actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()), 
-          //   poster: poster,
-          //   rating: parseInt(rating)
-          // };
-          // console.log(newMovie);
-          // movies[movies.length] = newMovie;
-          // setMovies(movies);
         }}/>} />
-        <Route path="/*" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );

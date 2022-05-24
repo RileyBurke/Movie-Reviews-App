@@ -34,11 +34,6 @@ function AddMoviePage({onAddMovie = f => f}) {
 
             onAddMovie(requestOptions);
 
-            // fetch("http://localhost:8000/add/submit", requestOptions)
-            // .then(response => response.json())
-            // .then(result => console.log(result))
-            // .catch(error => console.log('error', error));
-
             setMovieName("");
             setReleaseDate("");
             setActors("");

@@ -18,18 +18,8 @@ app.get('/posters/:filename', async (req, res) => {
     const { filename } = req.params;
     const dirname = path.resolve();
     const fullPath = path.join(dirname, 'posters/' + filename);
+    console.log(fullPath);
     res.sendFile(fullPath);
-    // try{
-    //     await client.connect();
-    //     const db = client.db("movieDatabase");
-    //     const movieInfo = await db.collection('movies').find({  });
-    //     res.status(200).json(movieInfo);
-    //     client.close();
-    // }catch(error){
-    //     res.sendStatus(500);
-    // }
-
-    
 });
 
 app.get('/api/data', async (req, res) => {
@@ -58,7 +48,7 @@ app.post('/api/add', upload.single('movie_poster'), async (req, res) => {
             "name": movieName,
             "releaseDate": releaseDate,
             "actors": actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()),
-            "poster": poster,
+            "poster": poster.filename,
             "rating": parseInt(rating)
         });
         const movieInfo = await db.collection('movies').find({}).toArray();
