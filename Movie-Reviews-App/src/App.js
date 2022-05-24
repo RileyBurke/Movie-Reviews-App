@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
-import { MovieReviews} from "./reviews";
-import { SubmitReview } from './movie_form';
-import { Navigation } from "./navigation";
+import ReviewsPage from "./pages/ReviewsPage";
+import AddMoviePage from './pages/AddMoviePage';
+import NavigationBar from "./components/Navbar";
+import ErrorPage from "./pages/ErrorPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 
@@ -20,26 +21,16 @@ function App() {
      fetchData();
    }, [])
 
-  // useEffect( () => {
-  //   fetch("movies.json")
-  //   .then( response => response.json() )
-  //   .then( setMovies )
-  //   .then( console.log(movies) )
-  //   .catch( e => console.log(e.message));
-  // }, []);
-
-
-
   return (
     <>
-      <Navigation />
+      <NavigationBar />
       <Routes>
-        <Route path="/" element={<MovieReviews moviesList={movies} setMovies={setMovies} 
+        <Route path="/" element={<ReviewsPage moviesList={movies} setMovies={setMovies} 
         onRemoveMovie={id => {
           const newList = movies.filter(movies => movies.id !== id);
           setMovies(newList);
         }} />} />
-        <Route path="/submit" element={<SubmitReview 
+        <Route path="/add" element={<AddMoviePage
         onAddMovie={ (movieName, releaseDate, actors, rating, poster) => {
           let movieId;
           if (movies.length > 0){
@@ -54,12 +45,13 @@ function App() {
             //Ensuring no whitespace errors entered within the actors text input.
             actors: actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()), 
             poster: poster,
-            rating: rating
+            rating: parseInt(rating)
           };
           console.log(newMovie);
           movies[movies.length] = newMovie;
           setMovies(movies);
         }}/>} />
+        <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </>
   );

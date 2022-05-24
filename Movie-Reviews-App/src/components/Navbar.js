@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav } from "react-bootstrap"
 
-export function Navigation() {
+function NavigationBar() {
     return(
         <>
             <Navbar bg="light">
@@ -11,9 +11,11 @@ export function Navigation() {
                         <Navbar.Brand>Riley's Movie Reviews</Navbar.Brand>
                     </Nav>
                     <Link to="/">Reviews</Link>
-                    <Link to="/submit">Submit a review</Link>
+                    <Link to="/add">Submit a review</Link>
                 </Container>
             </Navbar>
         </>
     );
-  };
+};
+
+export default NavigationBar;
