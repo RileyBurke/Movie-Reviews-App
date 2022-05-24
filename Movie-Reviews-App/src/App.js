@@ -11,7 +11,6 @@ import './main.css';
 function App() {
   const [movies, setMovies] = useState(null);
 
-
    useEffect( () => {
      const fetchData = async () => {
        const result = await fetch("/api/data");
@@ -21,35 +20,72 @@ function App() {
      fetchData();
    }, [])
 
+  // useEffect( () => {
+  //   fetch("movies.json")
+  //   .then( response => response.json() )
+  //   .then( setMovies )
+  //   .then( console.log(movies) )
+  //   .catch( e => console.log(e.message));
+  // }, []);
+
+
+
   return (
     <>
       <NavigationBar />
       <Routes>
-        <Route path="/" element={<ReviewsPage moviesList={movies} setMovies={setMovies} 
+        <Route path="/" element={<ReviewsPage moviesList={movies} 
         onRemoveMovie={id => {
-          const newList = movies.filter(movies => movies.id !== id);
+          const newList = movies.filter(movies => movies._id !== id);
           setMovies(newList);
+
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+          "id": id
+          });
+
+          var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+          };
+
+          fetch("http://localhost:8000/api/remove", requestOptions)
+          .then(response => response.json())
+          .then(setMovies)
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+
         }} />} />
         <Route path="/add" element={<AddMoviePage
-        onAddMovie={ (movieName, releaseDate, actors, rating, poster) => {
-          let movieId;
-          if (movies.length > 0){
-            movieId = movies[movies.length - 1].id + 1;
-           }else{
-             movieId = 0
-           };
-          const newMovie = {
-            id: movieId,
-            name: movieName,
-            releaseDate: releaseDate,
-            //Ensuring no whitespace errors entered within the actors text input.
-            actors: actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()), 
-            poster: poster,
-            rating: parseInt(rating)
-          };
-          console.log(newMovie);
-          movies[movies.length] = newMovie;
-          setMovies(movies);
+        onAddMovie={ (requestOptions) => {
+
+          fetch("http://localhost:8000/api/add", requestOptions)
+            .then(response => response.json())
+            .then(setMovies)
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+          // let movieId;
+          // if (movies.length > 0){
+          //   movieId = movies.length;
+          //  }else{
+          //    movieId = 0
+          //  };
+          // const newMovie = {
+          //   _id: movieId,
+          //   name: movieName,
+          //   releaseDate: releaseDate,
+          //   //Ensuring no whitespace errors entered within the actors text input.
+          //   actors: actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()), 
+          //   poster: poster,
+          //   rating: parseInt(rating)
+          // };
+          // console.log(newMovie);
+          // movies[movies.length] = newMovie;
+          // setMovies(movies);
         }}/>} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

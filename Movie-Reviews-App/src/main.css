@@ -1,5 +1,5 @@
 body{
-    background: url("C:\Users\riley\Desktop\Project\Movie-Reviews-App\Movie-Reviews-App\public\film_background2.png");
+    background: url("../public/film_background2.png");
     margin-top: 80px;
     background-size: cover;
 }

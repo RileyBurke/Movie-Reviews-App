@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import StarRating from "../components/StarRating";
 
-function Review({id, name, actors, poster, releaseDate, rating, onRemove = f => f}) {
+function Review({_id, name, actors, poster, releaseDate, rating, onRemove = f => f}) {
     return(
         <>
             <Container>
@@ -19,12 +19,12 @@ function Review({id, name, actors, poster, releaseDate, rating, onRemove = f => 
                         <h4 className="movieRating">
                             Rating: {StarRating(rating)}
                         </h4>
-                        <button onClick={() => onRemove(id)}>
+                        <button onClick={() => onRemove(_id)}>
                         <FaTrash />
                         </button>
                     </Col>
                     <Col>
-                        <img src={poster} alt={`${poster.split(/[/.]/)[2]} movie poster`} />
+                        <img src={poster} alt={"Movie poster"} />
                     </Col>
                 </Row>
             </Container>

@@ -3,58 +3,53 @@ import './../form.css';
 
 const $ = selector => document.querySelector(selector);
 
-function AddMoviePage( {onAddMovie = f => f} ) {
-    const addMovie = async () => {
-        const result = await fetch(`/api/data/add_movie`, {
-            method: "post",
-            body: JSON.stringify( {} ),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }) 
-        const body = await result.json();
-    }
-
-
+function AddMoviePage({onAddMovie = f => f}) {
     const [movieName, setMovieName] = useState("");
     const [releaseDate, setReleaseDate] = useState("");
     const [actors, setActors] = useState("");
     const [rating, setRating] = useState(1);
-    const [poster, setPoster] = useState(null);
+    const [poster, setPoster] = useState("");
 
     const submit = e => {
         const validExtensions = ["jpg", "jpeg", "png", "bmp"];
-        
         e.preventDefault();
         let fileExtension = poster.split('.').pop();
 
         if (movieName !== "" && releaseDate !== "" && actors.match(/[A-Za-z]/) && validExtensions.includes(fileExtension)){
-            onAddMovie(movieName, releaseDate, actors, rating, poster);
             document.querySelector("#confirmation").classList = "success";
             document.querySelector("form").nextElementSibling.textContent = `${movieName} review submission successful!`;
             
-            // var formdata = new FormData();
-            // formdata.append("name", movieName);
-            // formdata.append("releaseDate", releaseDate);
-            // formdata.append("actors", actors.trim().replace("\n", "").split(",").filter( (actor) => actor.trim() !== "").map(actor => actor.trim()));
-            // formdata.append("poster", $("#movie_poster").files[0]);
-            // formdata.append("rating", parseInt(rating));
+            var formdata = new FormData();
+            formdata.append("movie_name", movieName);
+            formdata.append("release_date", releaseDate);
+            formdata.append("actors", actors);
+            formdata.append("movie_poster", $("#movie_poster").files[0]);
+            formdata.append("movie_rating", rating);
 
-            // var requestOptions = {
-            // method: 'POST',
-            // body: formdata,
-            // redirect: 'follow'
-            // };
-            
+            var requestOptions = {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
+            };
+
+            onAddMovie(requestOptions);
+
             // fetch("http://localhost:8000/add/submit", requestOptions)
-            // .then(response => response.text())
+            // .then(response => response.json())
             // .then(result => console.log(result))
             // .catch(error => console.log('error', error));
 
-            $("#movie_form").submit();
             setMovieName("");
             setReleaseDate("");
             setActors("");
+            setRating(1);
+            setPoster("");
+            $("#movie_name").value = "";
+            $("#release_date").value = "";
+            $("#actors").value = "";
+            $("#movie_rating").value = 1;
+            $("#movie_poster").value = "";
+
         }else if(!(validExtensions.includes(fileExtension))){
             $("#confirmation").classList = "fail";
             $("#confirmation").textContent = "Invalid image file.";
