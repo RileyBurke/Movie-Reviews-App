@@ -36,7 +36,6 @@ app.get('/posters/:filename', async (req, res) => {
     const { filename } = req.params;
     const dirname = path.resolve();
     const fullPath = path.join(dirname, 'posters/' + filename);
-    console.log(fullPath);
     res.sendFile(fullPath);
 });
 

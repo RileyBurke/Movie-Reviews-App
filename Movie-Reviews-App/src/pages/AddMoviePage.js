@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-// import './../form.css';
 import { Container, Form, Button } from "react-bootstrap"
+import Alerts from "../components/Alerts";
 
 const $ = selector => document.querySelector(selector);
+
 
 function AddMoviePage({onAddMovie = f => f}) {
     const [movieName, setMovieName] = useState("");
@@ -10,6 +11,9 @@ function AddMoviePage({onAddMovie = f => f}) {
     const [actors, setActors] = useState("");
     const [rating, setRating] = useState(1);
     const [poster, setPoster] = useState("");
+    const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [show, setShow] = useState(false);
 
     const submit = e => {
         const validExtensions = ["jpg", "jpeg", "png", "bmp"];
@@ -17,8 +21,9 @@ function AddMoviePage({onAddMovie = f => f}) {
         let fileExtension = poster.split('.').pop();
 
         if (movieName !== "" && releaseDate !== "" && actors.match(/[A-Za-z]/) && validExtensions.includes(fileExtension)){
-            document.querySelector("#confirmation").classList = "success";
-            document.querySelector("form").nextElementSibling.textContent = `${movieName} review submission successful!`;
+            setShow(true);
+            setSuccess(true);
+            setMessage(`${movieName} review submission successful!`);
             
             var formdata = new FormData();
             formdata.append("movie_name", movieName);
@@ -47,11 +52,13 @@ function AddMoviePage({onAddMovie = f => f}) {
             $("#movie_poster").value = "";
 
         }else if(!(validExtensions.includes(fileExtension))){
-            $("#confirmation").classList = "fail";
-            $("#confirmation").textContent = "Invalid image file.";
+            setShow(true);
+            setSuccess(false);
+            setMessage("Invalid image file.");
         }else{
-            $("#confirmation").classList = "fail";
-            $("#confirmation").textContent = "All text fields must be completed.";
+            setShow(true);
+            setSuccess(false);
+            setMessage("All text fields must be completed.");
         };
     };
 
@@ -87,11 +94,11 @@ function AddMoviePage({onAddMovie = f => f}) {
                     <Form.Control type="file" id="movie_poster" name="movie_poster" accept=".bmp, .png, .jpg, .jpeg" onChange={e => setPoster(e.target.value)}/>
                     <Form.Text muted>Only images of type .jpg, .png, .bmp accepted.</Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-2">
+                <Form.Group className="mb-4">
                     <Button variant="outline-success" size="lg" id="submit_review" type="submit">Submit Review</Button>
                 </Form.Group>
             </Form>
-            <span id="confirmation"></span>
+            <Alerts show={show} success={success} message={message} setShow={setShow}/>
         </Container>
         </>
     );
