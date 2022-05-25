@@ -9,7 +9,6 @@ function ReviewsPage( { moviesList = [], onRemoveMovie = f => f}) {
     return(
         <>
             <h1>Movie Reviews</h1>
-            {console.log(moviesListObjects)}
             {
                 moviesListObjects.map ( (movie) => {
                     let actorsObject = movie.movieInfo.actors.map( (actor, i) => ({actor: actor, id: i}));
