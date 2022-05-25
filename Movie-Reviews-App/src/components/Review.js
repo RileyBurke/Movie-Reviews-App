@@ -4,9 +4,6 @@ import StarRating from "../components/StarRating";
 
 
 function Review({_id, name, actors, poster, releaseDate, rating, onRemove = f => f}) {
-
-    
-
     return(
         <>
             <Container>

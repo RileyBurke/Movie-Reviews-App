@@ -20,14 +20,6 @@ function App() {
      fetchData();
    }, [])
 
-  // useEffect( () => {
-  //   fetch("movies.json")
-  //   .then( response => response.json() )
-  //   .then( setMovies )
-  //   .then( console.log(movies) )
-  //   .catch( e => console.log(e.message));
-  // }, []);
-
   return (
     <>
       <NavigationBar />

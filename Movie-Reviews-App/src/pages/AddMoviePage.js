@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import './../form.css';
+// import './../form.css';
+import { Container, Form, Button } from "react-bootstrap"
 
 const $ = selector => document.querySelector(selector);
 
@@ -55,29 +56,44 @@ function AddMoviePage({onAddMovie = f => f}) {
     };
 
     return(
-        <div>
-            <h1>Submit a Movie Review</h1>
-            <form action="/add/submit" id="movie_form" method="POST" encType="multipart/form-data" onSubmit={submit}>
-                <label htmlFor="movie_name">Movie Title: </label>
-                <input type="text" id="movie_name" name="movie_name" onChange={e => setMovieName(e.target.value)}/><br/>
-                <label htmlFor="release_date">Release date: </label>
-                <input type="text" id="release_date" name="release_date" onChange={e => setReleaseDate(e.target.value)} /><br/>
-                <label htmlFor="actors">Actors: </label>
-                <textarea id="actors" name="actors" placeholder="Actor1, actor2, actor3, etc." cols="40" rows="5" onChange={e => setActors(e.target.value)} /><br/>
-                <label htmlFor="movie_rating">Movie rating: </label>
-                <select id="movie_rating" name="movie_rating" onChange={e => setRating(e.target.value)}>
+        <>
+        <h1>Submit a Movie Review</h1>
+        <Container>
+            <Form action="/add/submit" id="movie_form" method="POST" encType="multipart/form-data" onSubmit={submit}>
+                <Form.Group className="mb-3">
+                    <Form.Label htmlFor="movie_name">Movie Title: </Form.Label>
+                    <Form.Control type="text" id="movie_name" name="movie_name" onChange={e => setMovieName(e.target.value)}/>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label htmlFor="release_date">Release date: </Form.Label>
+                    <Form.Control type="text" id="release_date" name="release_date" onChange={e => setReleaseDate(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label htmlFor="actors">Actors: </Form.Label>
+                    <Form.Control as="textarea" id="actors" name="actors" placeholder="Actor1, actor2, actor3, etc." rows="5" onChange={e => setActors(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                <Form.Label htmlFor="movie_rating">Movie rating: </Form.Label>
+                <Form.Select id="movie_rating" name="movie_rating" onChange={e => setRating(e.target.value)}>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={3}>3</option>
                     <option value={4}>4</option>
                     <option value={5}>5</option>
-                </select><br/>
-                <label htmlFor="movie_poster">Movie poster: </label>
-                <input type="file" id="movie_poster" name="movie_poster" accept=".bmp, .png, .jpg, .jpeg" onChange={e => setPoster(e.target.value)}/><br/>
-                <button id="submit_review" type="submit">Submit Review</button>
-            </form>
+                </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-4">
+                    <Form.Label htmlFor="movie_poster">Movie poster: </Form.Label>
+                    <Form.Control type="file" id="movie_poster" name="movie_poster" accept=".bmp, .png, .jpg, .jpeg" onChange={e => setPoster(e.target.value)}/>
+                    <Form.Text muted>Only images of type .jpg, .png, .bmp accepted.</Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-2">
+                    <Button variant="outline-success" size="lg" id="submit_review" type="submit">Submit Review</Button>
+                </Form.Group>
+            </Form>
             <span id="confirmation"></span>
-        </div>
+        </Container>
+        </>
     );
 };
 
