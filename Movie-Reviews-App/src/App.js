@@ -25,7 +25,7 @@ function App() {
       <NavigationBar />
       <Routes>
         <Route path="/" element={<ReviewsPage moviesList={movies} 
-        onRemoveMovie={id => {
+        onRemoveMovie={ (id, poster) => {
           const newList = movies.filter(movies => movies._id !== id);
           setMovies(newList);
 
@@ -33,7 +33,7 @@ function App() {
           myHeaders.append("Content-Type", "application/json");
 
           var raw = JSON.stringify({
-          "id": id
+          "id": id, "poster": poster
           });
 
           var requestOptions = {
@@ -46,7 +46,6 @@ function App() {
           fetch("/api/remove", requestOptions)
           .then(response => response.json())
           .then(setMovies)
-          .then(result => console.log(result))
           .catch(error => console.log('error', error));
 
         }} />} />
@@ -56,7 +55,6 @@ function App() {
           fetch("/api/add", requestOptions)
             .then(response => response.json())
             .then(setMovies)
-            .then(result => console.log(result))
             .catch(error => console.log('error', error));
         }}/>} />
         <Route path="*" element={<ErrorPage />} />

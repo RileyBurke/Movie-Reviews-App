@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "fs";
 import { MongoClient, ObjectId } from "mongodb";
 import multer from "multer";
 import path from "path";
@@ -84,7 +85,9 @@ app.post('/api/add', upload.single('movie_poster'), async (req, res) => {
 
 app.post('/api/remove', async (req, res) => {
     const id = req.body.id;
-
+    const poster = req.body.poster;
+    const dirname = path.resolve();
+    const fullPath = path.join(dirname + '/posters/' + poster);
     try{
         await client.connect();
         const db = client.db("movieDatabase");
@@ -94,9 +97,16 @@ app.post('/api/remove', async (req, res) => {
         const movieInfo = await db.collection('movies').find({}).toArray();
         res.status(200).json(movieInfo);
         client.close();
+        
+        fs.unlink(fullPath, (err) => {
+        if (err) throw err;
+        console.log(fullPath + " was deleted.")
+    });
+    
     }catch(error){
         res.sendStatus(500);
     }
+    
 });
 
 app.get('*', (req, res) => {

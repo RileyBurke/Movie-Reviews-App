@@ -14,7 +14,7 @@ function ReviewsPage( { moviesList = [], onRemoveMovie = f => f}) {
                     let actorsObject = movie.movieInfo.actors.map( (actor, i) => ({actor: actor, id: i}));
                     return(
                         <Review id={movie.movieInfo.id} name={movie.movieInfo.name} actors={actorsObject} poster={movie.movieInfo.poster} releaseDate={movie.movieInfo.releaseDate} 
-                        rating={movie.movieInfo.rating} onRemove={() => onRemoveMovie(movie.movieInfo._id)} key={movie.movieInfo._id} />
+                        rating={movie.movieInfo.rating} onRemove={() => onRemoveMovie(movie.movieInfo._id, movie.movieInfo.poster)} key={movie.movieInfo._id} />
                         );
                     }
                 )
