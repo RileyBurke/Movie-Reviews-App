@@ -43,7 +43,7 @@ function App() {
           redirect: 'follow'
           };
 
-          fetch("http://localhost:8000/api/remove", requestOptions)
+          fetch("/api/remove", requestOptions)
           .then(response => response.json())
           .then(setMovies)
           .then(result => console.log(result))
@@ -53,7 +53,7 @@ function App() {
         <Route path="/add" element={<AddMoviePage
         onAddMovie={ (requestOptions) => {
 
-          fetch("http://localhost:8000/api/add", requestOptions)
+          fetch("/api/add", requestOptions)
             .then(response => response.json())
             .then(setMovies)
             .then(result => console.log(result))
